@@ -1,7 +1,7 @@
 ﻿TMAGImage
 ====
 
-for Delphi.
+for Delphi.  
 ".mag" image load/save unit.  
 ".mag" image file format in the PC communication of Japan.  
 

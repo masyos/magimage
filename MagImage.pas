@@ -1,8 +1,7 @@
 (***********************************************************************
  *  MAG Image classes
- *              Copyright (c)1997,1999 Masahiro Yoshida.
- *              mailto:mas@pb.highway.ne.jp
- *              http://home3.highway.ne.jp/mas/
+ *              Copyright (c)1997,1999, 2012, 2015 YOSHIDA, Masahiro.
+ *              https://github.com/masyos/magimage
  *
  *  1997.01.13  first.(Delphi 2 and Uncomress only)
  *  1999.06.26  Delphi 4 only. But uncompress speed up.
@@ -55,26 +54,26 @@ type
   (* Mag file header *)
   PMagID = ^TMagID;
   TMagID = packed record
-    ID    : array [0..7] of AnsiChar;
-    Machine  : array [0..3] of AnsiChar;
-    User  : array [0..19] of AnsiChar;
+    ID     : array [0..7] of AnsiChar;
+    Machine: array [0..3] of AnsiChar;
+    User   : array [0..19] of AnsiChar;
   end;(*record*)
 
   PMagHeader = ^TMagHeader;
   TMagHeader = packed record
-    Head    : Byte;      (* ヘッダの先頭 = $00 *)
-    Machine    : Byte;      (* 機種コード *)
-    MachineFlag  : Byte;      (* 機種依存フラグ *)
-    ScreenMode  : TMagScreenFlag;(* スクリーンモード *)
-    BeginX    : Word;      (* 表示開始位置Ｘ *)
-    BeginY    : Word;      (* 表示開始位置Ｙ *)
-    EndX    : Word;      (* 表示終了位置Ｘ *)
-    EndY    : Word;      (* 表示終了位置Ｙ *)
+    Head      : Byte;        (* ヘッダの先頭 = $00 *)
+    Machine   : Byte;        (* 機種コード *)
+    MachineFlag: Byte;       (* 機種依存フラグ *)
+    ScreenMode: TMagScreenFlag;(* スクリーンモード *)
+    BeginX    : Word;        (* 表示開始位置Ｘ *)
+    BeginY    : Word;        (* 表示開始位置Ｙ *)
+    EndX      : Word;        (* 表示終了位置Ｘ *)
+    EndY      : Word;        (* 表示終了位置Ｙ *)
     FlagAOfs  : Cardinal;    (* フラグＡのオフセット *)
     FlagBOfs  : Cardinal;    (* フラグＢのオフセット *)
-    FlagBSize  : Cardinal;    (* フラグＢのサイズ *)
+    FlagBSize : Cardinal;    (* フラグＢのサイズ *)
     PixelOfs  : Cardinal;    (* ピクセルのオフセット *)
-    PixelSize  : Cardinal;    (* ピクセルのサイズ *)
+    PixelSize : Cardinal;    (* ピクセルのサイズ *)
   end;(*record*)
 
   PMagPalette = ^TMagPalette;
