@@ -1,0 +1,157 @@
+﻿
+	TMAGImage unit Ref.
+				Ver 1.10		2015/03/26
+
+			Copyright (c)1997,1999,2012,2015 YOSHIDA, Masahiro.
+			https://github.com/masyos/magimage
+
+
+	プログラミングに際して、必要だと思われる情報。
+
+	ピクセルフォーマット用 
+		TMagPixelFormat = (mpf4Bit, mpf8Bit);
+
+	例外処理用
+		EMagError = CLASS(Exception);
+		EInvalidMagOperation = CLASS(EInvalidGraphicOperation);
+
+	 MAG イメージデータ用
+		TMagData = CLASS(TSharedImage);
+
+	 MAG イメージ用
+		TMAGImage = CLASS(TGraphic)
+		PROTECTED
+			(* override *)
+			PROCEDURE Draw(ACanvas: TCanvas; CONST Rect: TRect);
+			FUNCTION GetEmpty: BOOLEAN;
+			FUNCTION GetHeight: INTEGER;
+			FUNCTION GetWidth: INTEGER;
+			PROCEDURE SetHeight(Value: INTEGER);
+			PROCEDURE SetWidth(Value: INTEGER);
+			PROCEDURE AssignTo(Dest: TPersistent);
+			FUNCTION Equals(Graphic: TGraphic): BOOLEAN;
+			FUNCTION GetPalette: HPALETTE;
+			PROCEDURE SetPalette(value: HPALETTE);
+			PROCEDURE ReadData(Stream: TStream);
+			PROCEDURE WriteData(Stream: TStream);
+
+			(* new *)
+			PROCEDURE FreePalette;
+			PROCEDURE FreeBitmap;
+			PROCEDURE NewBitmap;
+			PROCEDURE NewImage;
+			PROCEDURE ReadStream(Size: INTEGER; Stream: TStream);
+			PROCEDURE LoadPalette;
+			PROCEDURE Uncompress;
+
+			PROPERTY Bitmap: TBitmap;	(* read only *)
+		PUBLIC
+			(* override *)
+			CONSTRUCTOR Create;
+			DESTRUCTOR Destroy;
+			PROCEDURE LoadFromStream(Stream: TStream);
+			PROCEDURE SaveToStream(Stream: TStream);
+			PROCEDURE LoadFromClipboardFormat(AFormat: WORD; 
+					AData: THandle;
+					APalette: HPALETTE);
+			PROCEDURE SaveToClipboardFormat(VAR AFormat: WORD; 
+					VAR AData: THandle;
+					VAR APalette: HPALETTE);
+			PROCEDURE Assign(Source: TPersistent);
+			(* new *)
+			PROCEDURE Compress;
+			PROCEDURE MAGNeeded;
+			PROCEDURE DIBNeeded;
+		(* PROPERTY *)
+			PROPERTY PixelFormat: TMagPixelFormat;
+			PROPERTY HalfHeight: BOOLEAN;
+			PROPERTY User: AnsiString;
+			PROPERTY Comment: AnsiString;
+		END;
+
+・関数とプロパティの説明
+
+	TMagImage
+		PROCEDURE Compress;
+			現在の MAG データ破棄し、新たな MAG データを作成。
+
+		PROCEDURE MAGNeeded;
+			 MAG でーたを持っていなければ、作成。
+
+		PROCEDURE DIBNeeded;
+			 DIB データを持っていなければ、作成。
+
+		PROPERTY PixelFormat: TMagPixelFormat;
+			色情報。
+
+		PROPERTY HalfHeight: BOOLEAN;
+			２００ラインモード用データかどうか。
+
+		PROPERTY User: AnsiString;
+			ユーザー名、十八文字まで。
+
+		PROPERTY Comment: AnsiString;
+			コメント。
+
+		PROPERTY Top: WORD;
+		PROPERTY Left: WORD;
+			画像位置情報。
+
+
+・注意点
+	・機種依存フラグ、デジタルフラグ、８色フラグはロード、セーブ時とも
+	　無視します。
+	　すべて、パレットデータの色を使います。
+
+	・デフォルトユーザー名は '>??<' です。
+	　本来は '>謎<' を入れるべきなのでしょうが、漢字をさけたかった為、
+	　変更してあります。
+
+	・コメント中にエスケープシーケンスを含んでいるデータに対しては
+	　保証しません。
+	　なぜなら MAG の仕様上認められていないからです。
+
+	・コメントが偶数バイトの場合、最後にスペースが追加されます。
+	　（ MAG の仕様ではありませんがバイト調整の為）
+
+	・２００ラインモードデータへの対応はしてませんので、そのまま描画
+	　すると、縦につぶれた状態になってます。
+	　本来のイメージに近づけたければ高さを２倍にして StretchDraw す
+	　るようにしてください。
+
+	・他のグラフィックデータが 8bits を越えている場合、 Assign した際
+	　色情報が 8bits を超える画像の場合、あらかじめ減色しておかないと、
+	　色が無茶苦茶になっても知りません。
+
+	・ OnProgress は発生しません。
+
+	・ mpf8bit なら４、 mpf4Bit なら８で、 Left は切り捨てられ、
+	　 Width は切り上げられます。
+	　また、部分イメージに対しても仮対応のため、そうなっています。
+
+	・ MAG の例外の発生
+	　 MAG image でない場合、 EMagError。
+	　イメージを持っていない時に Compress を実行した場合、 EMagError。
+	　位置と幅、高さが MAG の仕様を超える場合、 EInvalidMagOperation。
+
+
+
+・Version 0.99 との違い
+
+	・１６色パレットの扱いを少し変えました。
+	　本来は 12bits なので、古いセーバーなどでセーブされたものはシフ
+	　ト演算が必要なものがあるのですが、 24bits でパレット情報を持っ
+	　ているものがほとんどだった為、行っていません。
+
+	　要するに１６色だとパレットモードが 12/24 bits の二つあるんです
+	　けど 24bits しか対応してません。
+	　（以前は 12bits only.）
+
+	　 12bits の場合は最悪でも近似色になるので、なんとか見られるはず
+	　です。
+
+
+
+
+
+[EOF]

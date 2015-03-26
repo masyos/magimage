@@ -1,6 +1,6 @@
 (***********************************************************************
  *  MAG Image classes
- *              Copyright (c)1997,1999, 2012, 2015 YOSHIDA, Masahiro.
+ *              Copyright (c)1997,1999,2012,2015 YOSHIDA, Masahiro.
  *              https://github.com/masyos/magimage
  *
  *  1997.01.13  first.(Delphi 2 and Uncomress only)
