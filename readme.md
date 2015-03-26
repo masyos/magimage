@@ -1,6 +1,7 @@
 ﻿TMAGImage
 ====
 
+for Delphi.
 ".mag" image load/save unit.  
 ".mag" image file format in the PC communication of Japan.  
 
@@ -13,7 +14,7 @@
 
 ## Install
 
-適当なディレクトリに MAG.pas と MAGTypes.pas をおいてください。  
+適当なディレクトリに MAGImage.pas をおいてください。  
 メニューの「コンポーネント」－「コンポーネントのインストール」を選んでユニットファイルに MAGImage.pas を選択して適当なパッケージに入れてください。  
 
 アンインストールはインストールしたパッケージから MAGImage.pas を削除。
@@ -73,6 +74,6 @@ THE SOFTWARE.
 	Mag.pas と MagType.pas を MagImage.pas にまとめた.  
 
 2015/03/27	Ver 1.10  
-	Delphi XE2 に対応した.  
-	Delphi 2009 より前は [Ver 1.01](http://masyos.sakura.ne.jp/software.html#delphi) を利用して下しさい.  
-
+	Delphi XE2(Win32/Win64) に対応した.  
+	4 から 7 までは [Ver 1.01](http://masyos.sakura.ne.jp/software.html#delphi) を利用してください.  
+	8 から XE, XE4以降は持ってないのでわからないです.
