@@ -73,8 +73,5 @@ THE SOFTWARE.
 
 * 2015/03/27	Ver 1.10  
 	* Delphi XE2(Win32/Win64) に対応した.  
-	4 から 7 までは [Ver 1.01](http://masyos.sakura.ne.jp/software.html#delphi) を利用してください.  
-	8 から XE, XE4以降は持ってないのでわからないです.  
+	4 から XE, XE4以降は動作確認していのでわからないです.  
 	* 俺ライセンスから MIT License に.  
-
-
