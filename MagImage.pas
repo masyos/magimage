@@ -17,7 +17,7 @@
 
 unit MagImage;
 
-{$IFNDEF FPC}
+{$IFDEF DCC}
   {$IFDEF VER350}
     // AnsiStrings: In Delphi 11(VER350), StrEnd warns, so I added it.
     {$DEFINE MAG_USE_ANSISTRINGS}
