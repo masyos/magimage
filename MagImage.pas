@@ -1,25 +1,38 @@
 (***********************************************************************
  *  MAG Image classes
- *              Copyright (c)1997,1999,2012,2015 YOSHIDA, Masahiro.
+ *              Copyright (c)1997-2024 YOSHIDA, Masahiro.
  *              https://github.com/masyos/magimage
  *
- *  1997.01.13  first.(Delphi 2 and Uncomress only)
- *  1999.06.26  Delphi 4 only. But uncompress speed up.
- *  1999.06.30  Compress support.
- *  1999.08.26  ...
- *  1999.10.20  DIBNeeded bug fix.
- *  2012.07.13  Mag.pas + MagType.pas => MagImage.pas
- *  2015.03.26  to Delphi XE2.
+ *  1997-01-13  first.(Delphi 2 and Uncomress only)
+ *  1999-06-26  Delphi 4 only. But uncompress speed up.
+ *  1999-06-30  Compress support.
+ *  1999-08-26  ...
+ *  1999-10-20  DIBNeeded bug fix.
+ *  2012-07-13  Mag.pas + MagType.pas => MagImage.pas
+ *  2015-03-26  Build confirmation in Delphi XE2.
+ *  2024-04-07  Build confirmation in Delphi 11 CE.
  *--------------------------------------------------------------------*
  *  classes
  ***********************************************************************)
 
 unit MagImage;
 
+{$IFNDEF FPC}
+  {$IFDEF VER350}
+    // AnsiStrings: In Delphi 11(VER350), StrEnd warns, so I added it.
+    {$DEFINE MAG_USE_ANSISTRINGS}
+  {$ENDIF}
+{$ENDIF}
+
 interface
 
 uses
-  Windows, SysUtils, Classes, Graphics;
+  Windows, SysUtils, Classes, Graphics
+{$IFDEF MAG_USE_ANSISTRINGS}
+    , AnsiStrings
+{$ENDIF}
+  ;
+
 
 (*--------------------------------------------------------------------*)
 (* Mag comments *)
@@ -835,7 +848,11 @@ begin
   FBitmap.Palette := CopyPalette(FPalette);
 
   (* init *)
+{$IFDEF MAG_USE_ANSISTRINGS}
+  pA := PByte( AnsiStrings.StrEnd( PAnsiChar(FImage.FData.Memory) ) );
+{$ELSE}
   pA := PByte( StrEnd( PAnsiChar(FImage.FData.Memory) ) );
+{$ENDIF}
   pB := pA;
   pP := PWORD(pA);
   Inc(pA, FImage.FHeader.FlagAOfs );
@@ -1000,7 +1017,7 @@ var
   A    : PByte;
   B, P  : TMemoryStream;
   pal    : TMagPalette256;
-  ASize  : Integer;
+  ASize  : Cardinal;
   colors  : Integer;
 begin
   if FBitmap = nil then

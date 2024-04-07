@@ -58,8 +58,10 @@ begin
 				mpf4Bit : s := s + '* 4';
 				mpf8Bit : s := s + '* 8';
 			END;
-			s := s + ' ['+ TMAGImage(Image1.Picture.Graphic).User + '] ' +
-					TMAGImage(Image1.Picture.Graphic).Comment;
+			s := s + ' [';
+      s := s + TMAGImage(Image1.Picture.Graphic).User;
+      s := s +  '] ';
+      s := s + TMAGImage(Image1.Picture.Graphic).Comment;
 		END;
 		StatusBar1.SimpleText := s;
 	END ;

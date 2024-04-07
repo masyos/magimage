@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 300
-  ClientWidth = 337
+  ClientHeight = 282
+  ClientWidth = 327
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,28 +11,23 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu1
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 337
-    Height = 281
+    Width = 327
+    Height = 263
     Align = alClient
     ExplicitWidth = 105
     ExplicitHeight = 105
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 281
-    Width = 337
+    Top = 263
+    Width = 327
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitLeft = 56
-    ExplicitTop = 264
-    ExplicitWidth = 0
   end
   object MainMenu1: TMainMenu
     Left = 56
